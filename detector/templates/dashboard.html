@@ -1,0 +1,57 @@
+<!-- detection/templates/dashboard.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YOLOv8 Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto bg-white rounded-xl shadow-md p-6">
+        <h1 class="text-3xl font-bold mb-4 text-center">YOLOv8 Object Detection</h1>
+
+        <div class="flex justify-between mb-4">
+            <form action="{% url 'start_detection' %}" method="get">
+                <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    Start Detection
+                </button>
+            </form>
+
+            <form action="{% url 'stop_detection' %}" method="get">
+                <button class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                    Stop Detection
+                </button>
+            </form>
+
+            <form action="{% url 'logout' %}" method="get">
+                <button class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">
+                    Logout
+                </button>
+            </form>
+        </div>
+
+        <h2 class="text-xl font-semibold mb-2">Recent Detections</h2>
+        <table class="table-auto w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="px-4 py-2">Object</th>
+                    <th class="px-4 py-2">Confidence</th>
+                    <th class="px-4 py-2">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr class="bg-white border-b">
+                    <td class="px-4 py-2">{{ log.object_name }}</td>
+                    <td class="px-4 py-2">{{ log.confidence|floatformat:2 }}</td>
+                    <td class="px-4 py-2">{{ log.timestamp }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center py-4 text-gray-500">No detections yet</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

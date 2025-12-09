@@ -1,0 +1,72 @@
+{% load static %}
+{% load form_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Forgot Password</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .input-container i {
+            position: absolute;
+            top: 70%;
+            left: 1rem;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+        .input-container input {
+            padding-left: 2.5rem; /* space for icon */
+        }
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-3xl shadow-lg p-10 w-full max-w-sm text-center">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Forgot Password</h2>
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            
+            <div class="input-container">
+                <label for="email">Enter your email address</label>
+                <i class="fa fa-envelope"></i>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="you@example.com"
+                    class="w-full px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+            </div>
+
+            <button
+                type="submit"
+                class="w-full py-2 text-white font-semibold rounded-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 transition"
+            >
+                <i class="fa fa-paper-plane mr-2"></i> Send Reset Link
+            </button>
+        </form>
+
+        <p class="text-sm text-gray-500 mt-6">
+            <a href="{% url 'login' %}" class="hover:underline text-blue-700 font-semibold">Back to Login</a>
+        </p>
+    </div>
+</body>
+</html>
